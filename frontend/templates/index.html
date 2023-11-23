@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Countries</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #343a40;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    <body>
+    <h1>All Countries ({{total}}) </h1>
+    <!-- {{con}} -->
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark" background="black">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Official Name</th>
+                <th>Common Name</th>
+                <th>Capital</th>
+                <th>Population</th>
+                <th>Area</th>
+                <th>Region</th>
+                <th>Subregion</th>
+                <th>Borders</th>
+                <th>Flag</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for country in con %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ country.name.common }}</td>
+                    <td>{{ country.name.official }}</td>
+                    <td>{{ country.name.nativeName.eng.common }}</td>
+                    <td>{{ country.capital.0 }}</td>
+                    <td>{{ country.population }}</td>
+                    <td>{{ country.area }}</td>
+                    <td>{{ country.region }}</td>
+                    <td>{{ country.subregion }}</td>
+                    <td>
+                        <ol>
+                            {% for border in country.borders %}
+                                <li>{{ border }}</li>    
+                            {% endfor %}
+                        </ol>
+                    </td>
+                    <td><img src="{{ country.flags.png }}" height="100", width="150"></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
